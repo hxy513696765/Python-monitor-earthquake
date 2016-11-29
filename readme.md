@@ -1,7 +1,13 @@
-Ê¹ÓÃ¡°Python2.7¡±ÒÔ¼°¡°PIL-1.1.7.win32-py2.7¡°¡±Í¼ĞÎ¿â»ñÈ¡µØÕğÍøµÄĞÅÏ¢È»ºóÔÚµØÍ¼ÉÏ±ê×¢³ö¶ÔÓ¦µÄĞÅÏ¢
+ä½¿ç”¨â€œPython2.7â€ä»¥åŠâ€œPIL-1.1.7.win32-py2.7â€œâ€å›¾å½¢åº“è·å–åœ°éœ‡ç½‘çš„ä¿¡æ¯ç„¶ååœ¨åœ°å›¾ä¸Šæ ‡æ³¨å‡ºå¯¹åº”çš„ä¿¡æ¯
+è¿è¡Œç¨‹åºåå°†ä¼šåœ¨ä½ çš„æ–‡ä»¶å¤¹ä¸‹ç”Ÿæˆä¸€ä¸ªout.jpgçš„å›¾åƒæ–‡ä»¶
 
-Êı¾İÀ´Ô´£º
+è¾“å‡ºçš„å›¾åƒå±€éƒ¨ç¤ºæ„å¦‚ä¸‹å›¾ï¼š
+![Image text](https://github.com/hxy513696765/Python-monitor-earthquake/blob/master/Draw%20Point.JPG?raw=true)
+
+æ•°æ®æ¥æºï¼š
 http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.atom
 
-PIL¿âµÄ°²×°Çë²Î¿¼£º
+PILåº“çš„å®‰è£…è¯·å‚è€ƒï¼š
 http://www.itnose.net/detail/6190636.html
+
+
