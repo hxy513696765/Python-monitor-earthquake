@@ -5,16 +5,16 @@ import math
 
 from PIL import Image,ImageDraw,ImageFont,ImageOps
 im = Image.open('bmng.jpg')
-img_w = im.size[0]/2;   #»ñÈ¡Í¼Æ¬µÄ¿í¶È
-img_h = im.size[1]/2;   #»ñÈ¡Í¼Æ¬µÄ¸ß¶È
+img_w = im.size[0]/2;   #è·å–å›¾ç‰‡çš„å®½åº¦
+img_h = im.size[1]/2;   #è·å–å›¾ç‰‡çš„é«˜åº¦
 img_a = img_w /180;
-lin_with = 4;           #»­±ê¼ÇÊ®×Ö¼ÜµÄÏß¿í
-lin_long = 10;          #Ê®×Ö¼ÜµÄÏß³¤
+lin_with = 4;           #ç”»æ ‡è®°åå­—æ¶çš„çº¿å®½
+lin_long = 10;          #åå­—æ¶çš„çº¿é•¿
 
-dl = 25;        #»­±ê×¢ÏßµÄ³¤¶È
-angl = 70;      #»­±ê×¢ÏßµÄÇãĞ±½Ç¶È
-offset_x = dl*  math.cos( math.radians(angl));      #±ê×¢ÏßX×ø±êµÄÆ«ÒÆÁ¿
-offset_y = dl*  math.sin( math.radians(angl));      #±ê×¢ÏßY×ø±êµÄÆ«ÒÆÁ¿
+dl = 25;        #ç”»æ ‡æ³¨çº¿çš„é•¿åº¦
+angl = 70;      #ç”»æ ‡æ³¨çº¿çš„å€¾æ–œè§’åº¦
+offset_x = dl*  math.cos( math.radians(angl));      #æ ‡æ³¨çº¿Xåæ ‡çš„åç§»é‡
+offset_y = dl*  math.sin( math.radians(angl));      #æ ‡æ³¨çº¿Yåæ ‡çš„åç§»é‡
 
 type = sys.getfilesystemencoding()
 
@@ -25,19 +25,19 @@ print url
 content = urllib2.urlopen(url).read()
 # 
 content = content.decode("UTF-8").encode(type)
-#ÍøÒ³ÄÚÈİµÄ¸ñÊ½
+#ç½‘é¡µå†…å®¹çš„æ ¼å¼
 #</id><title>M 2.7 - 22km NW of Nikiski, Alaska</title><updated>2016-11-24T02:57:07.027Z</updated><link rel="alternate" type="text/html" href="http://earthquake.usgs.gov/earthquakes/eventpage/ak14401253"/><summary type="html"><![CDATA[<dl><dt>Time</dt><dd>2016-11-24 02:33:16 UTC</dd><dd>2016-11-23 17:33:16 -09:00 at epicenter</dd><dt>Location</dt><dd>60.854&deg;N 151.518&deg;W</dd><dt>Depth</dt><dd>72.70 km (45.17 mi)</dd></dl>]]></summary><georss:point>60.8539 -151.5176</georss:point><georss:elev>-72700</georss:elev><category label="Age" term="Past Day"/><category label="Magnitude" term="Magnitude 2"/><category label="Contributor" term="ak"/><category label="Author" term="ak"/></entry>
 #nation = re.findall(r'</id><title>M (.*) - (.*) of (.*), (.*)</title><updated>', content)
 
-#»ñÈ¡µØÕğµØµãÃû³Æ
+#è·å–åœ°éœ‡åœ°ç‚¹åç§°
 nation = re.findall(r'</id><title>M (.*) - (.*?)</title><updated>', content)
-#»ñÈ¡µØÕğµØµãµÄ·¢ÉúÊ±¼ä
+#è·å–åœ°éœ‡åœ°ç‚¹çš„å‘ç”Ÿæ—¶é—´
 utc_time = re.findall(r'Time</dt><dd>(.*?) (.*?) UTC</dd><dd>', content)
-#»ñÈ¡µØÕğµØµãµÄµØÀí¾­Î³¶È×ø±ê
+#è·å–åœ°éœ‡åœ°ç‚¹çš„åœ°ç†ç»çº¬åº¦åæ ‡
 location = re.findall(r'</dd><dt>Location</dt><dd>(.*)&deg;(.*) (.*)&deg;(.*)</dd><dt>', content)
 
 
-def lngToPx(num,lng):   #¾­¶ÈÖµ×ª»»ÎªµØÍ¼ÉÏµÄX×ø±ê
+def lngToPx(num,lng):   #ç»åº¦å€¼è½¬æ¢ä¸ºåœ°å›¾ä¸Šçš„Xåæ ‡
     if lng=='E':
         #num = 2700 +  (num*15);
         num = img_w +  (num*img_a);
@@ -48,7 +48,7 @@ def lngToPx(num,lng):   #¾­¶ÈÖµ×ª»»ÎªµØÍ¼ÉÏµÄX×ø±ê
         return -1;        
     return num;
 
-def latToPy(num,lat):   #Î¬¶ÈÖµ×ª»»ÎªµØÍ¼ÉÏµÄY×ø±ê  
+def latToPy(num,lat):   #ç»´åº¦å€¼è½¬æ¢ä¸ºåœ°å›¾ä¸Šçš„Yåæ ‡  
     if   lat == 'N':
         #num = 1350*(1 - (num/90));
         num = img_h*(1 - (num/90));
@@ -61,20 +61,20 @@ def latToPy(num,lat):   #Î¬¶ÈÖµ×ª»»ÎªµØÍ¼ÉÏµÄY×ø±ê
     
 
 
-#ÉêÇëÒ»¸ö¶şÎ¬Êı×éÓÃÀ´´æ´¢´¦ÀíµÄÊı¾İ
+#ç”³è¯·ä¸€ä¸ªäºŒç»´æ•°ç»„ç”¨æ¥å­˜å‚¨å¤„ç†çš„æ•°æ®
 coord_num = [[0 for col in range(5)] for row in range(len(nation))] 
 
-#´¦Àí´ÓÍøÒ³»ñÈ¡µ½µÄ×ø±êĞÅÏ¢£¬×ª»»Îª¿ÉÒÔÖ±½ÓÔÚµØÍ¼ÉÏ»æÖÆµÄ×ø±ê
+#å¤„ç†ä»ç½‘é¡µè·å–åˆ°çš„åæ ‡ä¿¡æ¯ï¼Œè½¬æ¢ä¸ºå¯ä»¥ç›´æ¥åœ¨åœ°å›¾ä¸Šç»˜åˆ¶çš„åæ ‡
 def coordinate_process():    
     for loop_c in range(0,len(nation),1):        
-        text_pixe = len(nation[loop_c][1])*6; #µØÀíÃû³ÆÕ¼ÓÃµÄÏñËØµã³¤¶È
+        text_pixe = len(nation[loop_c][1])*6; #åœ°ç†åç§°å ç”¨çš„åƒç´ ç‚¹é•¿åº¦
 
-        #ÍøÒ³»ñÈ¡µÄ¾­¶ÈÖµ×ª»»ÎªX×ø±ê
+        #ç½‘é¡µè·å–çš„ç»åº¦å€¼è½¬æ¢ä¸ºXåæ ‡
         coord_num[loop_c][0] = int(lngToPx(float(location[loop_c][2]),location[loop_c][3]));
-        #ÍøÒ³»ñÈ¡µÄÎ¬¶ÈÖµ×ª»»ÎªY×ø±ê
+        #ç½‘é¡µè·å–çš„ç»´åº¦å€¼è½¬æ¢ä¸ºYåæ ‡
         coord_num[loop_c][1] = int(latToPy(float(location[loop_c][0]),location[loop_c][1]));
 
-        if (coord_num[loop_c][0] > 5100):   #±ÜÃâ»æÖÆµØÀíÃû³Æ×Ö·û´®Ô½½çµØÍ¼
+        if (coord_num[loop_c][0] > 5100):   #é¿å…ç»˜åˆ¶åœ°ç†åç§°å­—ç¬¦ä¸²è¶Šç•Œåœ°å›¾
             coord_num[loop_c][2] = coord_num[loop_c][0] - offset_x;
             if (coord_num[loop_c][1] > offset_y):
                 coord_num[loop_c][3] = coord_num[loop_c][1] - offset_y;
@@ -83,19 +83,19 @@ def coordinate_process():
             if (coord_num[loop_c][1] > offset_y):
                 coord_num[loop_c][3] = coord_num[loop_c][1] - offset_y;
 
-         #´¦ÀíµØÀíÃû³Æ×Ö·û´®ÉÏÏÂµÄ¼ä¸ô£¬±ÜÃâºóÃæ»æÖÆµÄ×Ö·û´®¸²¸ÇµôÇ°ÃæÒÑ¾­»æÖÆÁËµÄ×Ö·û´®
+         #å¤„ç†åœ°ç†åç§°å­—ç¬¦ä¸²ä¸Šä¸‹çš„é—´éš”ï¼Œé¿å…åé¢ç»˜åˆ¶çš„å­—ç¬¦ä¸²è¦†ç›–æ‰å‰é¢å·²ç»ç»˜åˆ¶äº†çš„å­—ç¬¦ä¸²
         for compl in range(0,loop_c,1):
-            #Èç¹ûÁ½¸ö×Ö·û´®Ö®¼äµÄY¼ä¸ôºÍX¼ä¸ôÓĞÖØºÏ
+            #å¦‚æœä¸¤ä¸ªå­—ç¬¦ä¸²ä¹‹é—´çš„Yé—´éš”å’ŒXé—´éš”æœ‰é‡åˆ
             if ((abs(coord_num[loop_c][3] - coord_num[compl][3]) < 25 ) and (abs(coord_num[loop_c][2] - coord_num[compl][2]) < text_pixe+5)):
-                if (coord_num[loop_c][3] < img_h - 25):
-                    coord_num[loop_c][3] = coord_num[compl][3] + 25;    #ÓĞÖØºÏ¾ÍÔö¼ÓÁ½ÕßÖ®¼äµÄ¼ä¸ô
+                if (coord_num[loop_c][3] < img_h*2 - 25):
+                    coord_num[loop_c][3] = coord_num[compl][3] + 25;    #æœ‰é‡åˆå°±å¢åŠ ä¸¤è€…ä¹‹é—´çš„é—´éš”
 
-        if (coord_num[loop_c][0] > 5100):   #±ÜÃâ»æÖÆµØÀíÃû³Æ×Ö·û´®Ô½½çµØÍ¼
+        if (coord_num[loop_c][0] > 5100):   #é¿å…ç»˜åˆ¶åœ°ç†åç§°å­—ç¬¦ä¸²è¶Šç•Œåœ°å›¾
             coord_num[loop_c][4] = coord_num[loop_c][2] - text_pixe - 5;
         else:
             coord_num[loop_c][4] = coord_num[loop_c][2] + text_pixe + 5;
 
-#ÔÚµØÍ¼Í¼Æ¬ÉÏµÄµØÕğµã»æÖÆÊ®×Ö¼Ü±ê¼ÇºÍµØÕğµØµã±ê×¢Ïß
+#åœ¨åœ°å›¾å›¾ç‰‡ä¸Šçš„åœ°éœ‡ç‚¹ç»˜åˆ¶åå­—æ¶æ ‡è®°å’Œåœ°éœ‡åœ°ç‚¹æ ‡æ³¨çº¿
 def draw_cross():
     draw = ImageDraw.Draw(im) 
     for loop in range(0,len(nation),1):
@@ -111,11 +111,11 @@ def draw_cross():
         G = (loop*8)%256;
         B = ((loop%10)*27)%256;
 
-        #ÔÚµØÍ¼Í¼Æ¬ÉÏµÄµØÕğµã»æÖÆÊ®×Ö¼Ü±ê¼Ç
+        #åœ¨åœ°å›¾å›¾ç‰‡ä¸Šçš„åœ°éœ‡ç‚¹ç»˜åˆ¶åå­—æ¶æ ‡è®°
         draw.line((coord_num[loop][0]-lin_long,coord_num[loop][1]-lin_long,coord_num[loop][0]+lin_long,coord_num[loop][1]+lin_long), (R,G,B),width = lin_with)
         draw.line((coord_num[loop][0]-lin_long,coord_num[loop][1]+lin_long,coord_num[loop][0]+lin_long,coord_num[loop][1]-lin_long), (R,G,B),width = lin_with)
 
-        #ÔÚµØÍ¼Í¼Æ¬ÉÏµÄµØÕğµØµã»æÖÆ±ê×¢Ïß
+        #åœ¨åœ°å›¾å›¾ç‰‡ä¸Šçš„åœ°éœ‡åœ°ç‚¹ç»˜åˆ¶æ ‡æ³¨çº¿
         draw.line((coord_num[loop][0],coord_num[loop][1],coord_num[loop][2],coord_num[loop][3]), (R,G,B),width = 1);
         draw.line((coord_num[loop][2],coord_num[loop][3],coord_num[loop][4],coord_num[loop][3]), (R,G,B),width = 1)
 
@@ -126,16 +126,16 @@ def draw_cross():
 
         print "--------------------------------------"
 
-#ÔÚµØÕğµØµØµã»æÖÆ±êµÄ×¢Ïß¸½½ü»æÖÆµØÀíĞÅÏ¢ºÍµØÕğ·¢ÉúÊ±¼äÒÑ¾­Ç¿¶ÈÖµ
+#åœ¨åœ°éœ‡åœ°åœ°ç‚¹ç»˜åˆ¶æ ‡çš„æ³¨çº¿é™„è¿‘ç»˜åˆ¶åœ°ç†ä¿¡æ¯å’Œåœ°éœ‡å‘ç”Ÿæ—¶é—´å·²ç»å¼ºåº¦å€¼
 def draw_text():
     out = Image.open('out.jpg');
     draw_out = ImageDraw.Draw(out);
 
     for loop_text in range(0,len(nation),1):
-        if (coord_num[loop_text][0] > 5100):    #±ÜÃâ»æÖÆµØÀíÃû³Æ×Ö·û´®Ô½½çµØÍ¼
+        if (coord_num[loop_text][0] > 5100):    #é¿å…ç»˜åˆ¶åœ°ç†åç§°å­—ç¬¦ä¸²è¶Šç•Œåœ°å›¾
             draw_out.text([coord_num[loop_text][4],coord_num[loop_text][3]],nation[loop_text][0]+"M "+utc_time[loop_text][0]+" "+utc_time[loop_text][1]+" UTC",(0,255,255))
             draw_out.text([coord_num[loop_text][4],coord_num[loop_text][3]-10],nation[loop_text][1],(128,255,0))  
-        else:   #»æÖÆµØÀíÃû³Æ×Ö·û´®
+        else:   #ç»˜åˆ¶åœ°ç†åç§°å­—ç¬¦ä¸²
             draw_out.text([coord_num[loop_text][2]+5,coord_num[loop_text][3]],nation[loop_text][0]+"M "+utc_time[loop_text][0]+" "+utc_time[loop_text][1]+" UTC",(0,255,255))
             draw_out.text([coord_num[loop_text][2]+5,coord_num[loop_text][3]-10],nation[loop_text][1],(128,255,0))  
 
