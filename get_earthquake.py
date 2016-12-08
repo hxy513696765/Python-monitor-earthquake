@@ -132,12 +132,19 @@ def draw_text():
     draw_out = ImageDraw.Draw(out);
 
     for loop_text in range(0,len(nation),1):
-        if (coord_num[loop_text][0] > 5100):    #避免绘制地理名称字符串越界地图
-            draw_out.text([coord_num[loop_text][4],coord_num[loop_text][3]],nation[loop_text][0]+"M "+utc_time[loop_text][0]+" "+utc_time[loop_text][1]+" UTC",(0,255,255))
-            draw_out.text([coord_num[loop_text][4],coord_num[loop_text][3]-10],nation[loop_text][1],(128,255,0))  
+        #把UTC时间转换成UTC+8的时间
+        utc8 = str((int(utc_time[loop_text][1][0:2])+8)%24);
+        if len(utc8) == 1:
+            utc8 = '0'+ utc8;
+        utc8 = utc8+utc_time[loop_text][1][2:];
+        
+        if (coord_num[loop_text][0] > 5100):    #避免绘制地理名称字符串越界地图            
+            draw_out.text([coord_num[loop_text][4],coord_num[loop_text][3]],nation[loop_text][0]+"M "+utc_time[loop_text][0]+" "+utc8+" UTC+8",(0,255,255))
+            draw_out.text([coord_num[loop_text][4],coord_num[loop_text][3]-10],nation[loop_text][1],(128,255,0))
+
         else:   #绘制地理名称字符串
-            draw_out.text([coord_num[loop_text][2]+5,coord_num[loop_text][3]],nation[loop_text][0]+"M "+utc_time[loop_text][0]+" "+utc_time[loop_text][1]+" UTC",(0,255,255))
-            draw_out.text([coord_num[loop_text][2]+5,coord_num[loop_text][3]-10],nation[loop_text][1],(128,255,0))  
+            draw_out.text([coord_num[loop_text][2]+5,coord_num[loop_text][3]],nation[loop_text][0]+"M "+utc_time[loop_text][0]+" "+utc8+" UTC+8" ,(0,255,255))
+            draw_out.text([coord_num[loop_text][2]+5,coord_num[loop_text][3]-10],nation[loop_text][1],(128,255,0))
 
     if loop_text == (len(nation)-1):
         out.save("out.jpg")
